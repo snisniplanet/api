@@ -1,7 +1,9 @@
 FROM php:7.4-fpm
 
-# Additional tools
+# Update
 RUN apt-get update
+
+# Additional tools
 RUN apt-get install -y --no-install-recommends librabbitmq-dev
 RUN apt-get install -y --no-install-recommends git
 RUN apt-get install -y --no-install-recommends wget
@@ -29,6 +31,9 @@ COPY composer.lock .
 
 # Install dependencies
 RUN composer install --no-scripts --no-autoloader
+
+# Export vendor path
+ENV PATH="/var/www/vendor/bin:$PATH"
 
 CMD ["php-fpm"]
 
