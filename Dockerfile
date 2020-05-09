@@ -23,6 +23,13 @@ RUN docker-php-ext-install tokenizer
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Copy composer.json
+COPY composer.json .
+COPY composer.lock .
+
+# Install dependencies
+RUN composer install --no-scripts --no-autoloader
+
 CMD ["php-fpm"]
 
 EXPOSE 9000
