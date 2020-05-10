@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('auth');
 
 /*
 |--------------------------------------------------------------------------
@@ -114,5 +115,7 @@ $app->router->group([
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
+
+\Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'oauth']);
 
 return $app;
