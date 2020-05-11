@@ -16,3 +16,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'secret', 'middleware' => 'auth'], function () use ($router) {
+    $router->get('/', function(){
+        return "shh. this is a secret area!";
+    });
+});
