@@ -17,8 +17,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->post('/register', 'UserController@register');
+
 $router->group(['prefix' => 'secret', 'middleware' => 'auth'], function () use ($router) {
     $router->get('/', function(){
-        return "shh. this is a secret area!";
+        return "shh. this is a secret area! ( ͡~ ͜ʖ ͡°)";
     });
 });
