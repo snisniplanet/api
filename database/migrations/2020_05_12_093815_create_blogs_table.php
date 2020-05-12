@@ -17,9 +17,10 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->string('code')->unique();
             $table->string('name');
-            $table->text('description');
-            $table->string('logo');
+            $table->text('description')->nullable();
+            $table->string('logo')->nullable();
         });
     }
 
