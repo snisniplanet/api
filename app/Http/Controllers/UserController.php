@@ -43,7 +43,7 @@ class UserController extends Controller
 
         /**Take note of this: Your user authentication access token is generated here **/
         $data['token'] =  $user->createToken('snisni token')->accessToken;
-        $data['name'] =  $user->name;
+        $data['name'] =  $user->username;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
     }
