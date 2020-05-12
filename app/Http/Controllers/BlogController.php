@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::withCount('subscribers')->get();
 
         //FIXME Use standard respone object (like in login)
         return response()->json($blogs);
