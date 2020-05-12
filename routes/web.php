@@ -24,3 +24,7 @@ $router->group(['prefix' => 'secret', 'middleware' => 'auth'], function () use (
         return "shh. this is a secret area! ( ͡~ ͜ʖ ͡°)";
     });
 });
+
+$router->group(['prefix' => 'blogs'], function () use ($router) {
+    $router->get('/', 'BlogController@index');
+});
