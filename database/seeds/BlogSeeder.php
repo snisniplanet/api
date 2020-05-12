@@ -12,7 +12,8 @@ class BlogSeeder extends Seeder
     public function run()
     {
         factory(App\Blog::class, 10)->create()->each(function($blog){
-            $blog->subscribers()->attach(1);
+            $blog->subscribers()->saveMany(App\User::all()->random(20));
+            $blog->managers()->attach(App\User::all()->random()->id);
         });
     }
 }

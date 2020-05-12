@@ -35,4 +35,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function subscriptions(){
         return $this->belongsToMany('App\Blog', 'subscribers');
     }
+
+    public function blogs(){
+        return $this->belongsToMany('App\Blog', 'managers');
+    }
 }
