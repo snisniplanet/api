@@ -16,6 +16,8 @@ class CreateSubscribersTable extends Migration
         Schema::create('subscribers', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('blog_id')->constrained();
+
+            $table->primary(['user_id', 'blog_id']);
         });
     }
 
