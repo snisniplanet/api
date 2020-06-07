@@ -28,3 +28,5 @@ $router->group(['prefix' => 'secret', 'middleware' => 'auth'], function () use (
 $router->group(['prefix' => 'blogs'], function () use ($router) {
     $router->get('/', 'BlogController@index');
 });
+
+$router->get('articles', 'ArticleController@index');
