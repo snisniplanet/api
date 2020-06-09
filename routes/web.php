@@ -14,7 +14,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return "SNISNI API · Built with " . $router->app->version();
 });
 
 $router->post('/register', 'UserController@register');
