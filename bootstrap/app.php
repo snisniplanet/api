@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -113,8 +113,12 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
+
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class,
+]);
 
 \Dusterio\LumenPassport\LumenPassport::routes($app, ['prefix' => 'oauth']);
 
