@@ -18,7 +18,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
@@ -50,8 +50,8 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'email' => 'required|email',
+            'username' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
