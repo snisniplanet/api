@@ -17,7 +17,29 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+
+        $input = $request->all();
+
+        if($user = User::where('email', $input['email'])->first()){
+            $data['token'] = $user->createToken('snisni.token')->accessToken;
+            $data['user'] = $user;
+
+            return response([
+                'data' => $data,
+                'message' => 'Login successful!'
+            ]);
+        }
+        else return response([
+            'message' => 'User not found'
+        ], 404);
     }
 
     /**
@@ -42,8 +64,8 @@ class UserController extends Controller
         $user = User::create($input);
 
         /**Take note of this: Your user authentication access token is generated here **/
-        $data['token'] =  $user->createToken('snisni token')->accessToken;
-        $data['name'] =  $user->username;
+        $data['token'] =  $user->createToken('snisni.token')->accessToken;
+        $data['user'] =  $user;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
     }
