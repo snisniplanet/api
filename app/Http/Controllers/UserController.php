@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Hamcrest\Core\HasToString;
 use Http\Message\RequestFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,16 +29,20 @@ class UserController extends Controller
 
         $input = $request->all();
 
-        if($user = User::where('email', $input['email'])->first()){
-            $data['token'] = $user->createToken('snisni.token')->accessToken;
-            $data['user'] = $user;
+        if ($user = User::where('email', $input['email'])->first()) {
+            if (Hash::check($input['password'], $user->password)) {
+                $data['token'] = $user->createToken('snisni.token')->accessToken;
+                $data['user'] = $user;
 
-            return response([
-                'data' => $data,
-                'message' => 'Login successful!'
-            ]);
-        }
-        else return response([
+                return response([
+                    'data' => $data,
+                    'message' => 'Login successful!'
+                ]);
+            }
+            else return response([
+                'message' => 'Incorrect password'
+            ], 500);
+        } else return response([
             'message' => 'User not found'
         ], 404);
     }
