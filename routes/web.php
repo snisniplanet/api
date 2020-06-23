@@ -20,9 +20,9 @@ $router->get('/', function () use ($router) {
 $router->post('/register', 'UserController@register');
 $router->post('/login', 'UserController@login');
 
-$router->group(['prefix' => 'secret', 'middleware' => 'auth'], function () use ($router) {
-    $router->get('/', function(){
-        return "shh. this is a secret area! ( ͡~ ͜ʖ ͡°)";
+$router->group(['middleware' => 'auth'], function () use ($router) {
+    $router->group(['prefix' => 'user'], function () use ($router) {
+        $router->get('me', 'UserController@me');
     });
 });
 

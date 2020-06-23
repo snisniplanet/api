@@ -98,6 +98,23 @@ class UserController extends Controller
     }
 
     /**
+     * Get the current authenticated user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function me()
+    {
+        $user = auth()->user();
+
+        if($user)
+            return response([
+                'data' => $user,
+                'token' => $user->token() //TODO Get token / Remember Token
+            ]);
+        else return response(['message' => 'No user found'], 404);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\User  $user
