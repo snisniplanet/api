@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ArticleController extends Controller
 {
@@ -18,16 +19,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +26,26 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO Create 'Valid' trait for models and store validation rules in there
+        $data = $this->validate($request, [
+            'title' => 'string|required',
+            'snippet' => 'string',
+            'content' => 'json|required',
+            'authors' => 'array|required',
+            'authors.*' => 'numeric|required',
+            'blog_id' => 'numeric|required'
+        ]);
+
+        $authorIds = Arr::pull($data, 'authors');
+        $article = new Article($data);
+
+        if($article->save()){
+            $article->authors()->attach($authorIds);
+            return response()->json($article);
+        }
+
+        else
+            return response(['message' => $article->error_get_last], 500);
     }
 
     /**
