@@ -33,4 +33,8 @@ $router->group(['prefix' => 'blogs'], function () use ($router) {
 $router->group(['prefix' => 'articles'], function () use ($router) {
     $router->get('/', 'ArticleController@index');
     $router->get('{id}', 'ArticleController@show');
+
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->post('publish', 'ArticleController@store');
+    });
 });
