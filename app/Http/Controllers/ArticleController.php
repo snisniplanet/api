@@ -46,7 +46,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article, $id)
     {
-        $article = $article->find($id);
+        $article = $article->with('authors')->find($id);
 
         return $article ? response()->json($article) : response(['message' => 'No article found'], 404);
     }
