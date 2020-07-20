@@ -9,7 +9,7 @@ $factory->define(Article::class, function (Faker $faker) {
     return [
         "title" => $faker->word,
         "snippet" => $faker->sentence,
-        "content" => "{}",
+        "content" => '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"I would really like to make a blog"}]}]}',
         "blog_id" => App\Blog::all()->random()
     ];
 });
