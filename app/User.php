@@ -33,6 +33,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'email', 'password', 'pivot', 'last_logged_in', 'deleted_at'
     ];
 
+    public function articles(){
+        return $this->hasManyThrough('App\Articles', 'authors');
+    }
+
     public function subscriptions(){
         return $this->belongsToMany('App\Blog', 'subscribers');
     }
