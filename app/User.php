@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'id', 'email', 'password', 'pivot', 'last_logged_in', 'deleted_at'
+        'email', 'password', 'pivot', 'last_logged_in', 'deleted_at'
     ];
 
     public function subscriptions(){
