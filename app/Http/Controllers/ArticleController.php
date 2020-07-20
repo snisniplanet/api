@@ -44,9 +44,11 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Article $article, $id)
     {
-        //
+        $article = $article->find($id);
+
+        return $article ? response()->json($article) : response(['message' => 'No article found'], 404);
     }
 
     /**

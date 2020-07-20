@@ -30,4 +30,7 @@ $router->group(['prefix' => 'blogs'], function () use ($router) {
     $router->get('/', 'BlogController@index');
 });
 
-$router->get('articles', 'ArticleController@index');
+$router->group(['prefix' => 'articles'], function () use ($router) {
+    $router->get('/', 'ArticleController@index');
+    $router->get('{id}', 'ArticleController@show');
+});
